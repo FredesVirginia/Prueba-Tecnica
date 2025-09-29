@@ -1,0 +1,51 @@
+# Docker Compose version removed as it's deprecated
+
+services:
+  # Servicio de MongoDB
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  # Servicio de Backend
+  backend:
+    build: ./back
+    container_name: backend
+    restart: always
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb://mongodb:27017/pruebatecnica
+      - JWT_SECRET=secretkey123456789
+    networks:
+      - app-network
+
+  # Servicio de Frontend
+  frontend:
+    build: ./front
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+# Volúmenes
+volumes:
+  mongodb_data:
+
+# Redes
+networks:
+  app-network:
+    driver: bridge

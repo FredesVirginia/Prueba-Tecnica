@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/* Estilos para la tabla de issues */
+.table-cell-editing .rs-table-cell-content {
+  padding: 4px;
+}
+
+.table-cell-editing .rs-input,
+.table-cell-editing .rs-picker-toggle {
+  width: 100%;
+}
+
+.status-tag {
+  font-weight: 500;
+}
+
+.priority-tag {
+  font-weight: 500;
+}
+
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+}
+
+.text-truncate:hover {
+  overflow: visible;
+  white-space: normal;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
