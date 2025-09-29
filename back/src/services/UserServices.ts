@@ -13,9 +13,9 @@ export const registerUser = async (userData: RegisterUserDto) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      const error = new Error("El email ya está registrado");
-      (error as any).code = "EMAIL_ALREADY_EXISTS";
-      (error as any).statusCode = 400;
+      const error: any = new Error("El email ya está registrado");
+      error.code = "EMAIL_ALREADY_EXISTS";
+      error.statusCode = 400;
       throw error;
     }
 
@@ -39,9 +39,9 @@ export const registerUser = async (userData: RegisterUserDto) => {
     }
 
     console.error("Error no manejado en registerUser:", error);
-    const serverError = new Error("Error interno del servidor");
-    (serverError as any).code = "SERVER_ERROR";
-    (serverError as any).statusCode = 500;
+    const serverError: any = new Error("Error interno del servidor");
+    serverError.code = "SERVER_ERROR";
+    serverError.statusCode = 500;
     throw serverError;
   }
 };
@@ -54,27 +54,27 @@ export const loginUser = async (
 
     const user = await User.findOne({ email });
     if (!user) {
-      const error = new Error("Email no encontrado");
-      (error as any).code = "INVALID_CREDENTIALS";
-      (error as any).statusCode = 401;
+      const error: any = new Error("Email no encontrado");
+      error.code = "INVALID_CREDENTIALS";
+      error.statusCode = 401;
       throw error;
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      const error = new Error("Contraseña incorrecta");
-      (error as any).code = "INVALID_CREDENTIALS";
-      (error as any).statusCode = 401;
+      const error: any = new Error("Contraseña incorrecta");
+      error.code = "INVALID_CREDENTIALS";
+      error.statusCode = 401;
       throw error;
     }
 
     try {
       if (!process.env.JWT_SECRET) {
-        const configError = new Error(
+        const configError: any = new Error(
           "Error de configuración: JWT_SECRET no está configurado"
         );
-        (configError as any).code = "CONFIG_ERROR";
-        (configError as any).statusCode = 500;
+        configError.code = "CONFIG_ERROR";
+        configError.statusCode = 500;
         throw configError;
       }
 
@@ -94,11 +94,11 @@ export const loginUser = async (
         },
       };
     } catch (error: any) {
-      const tokenError = new Error(
+      const tokenError: any = new Error(
         "Error al generar el token de autenticación"
       );
-      (tokenError as any).code = "TOKEN_GENERATION_ERROR";
-      (tokenError as any).statusCode = 500;
+      tokenError.code = "TOKEN_GENERATION_ERROR";
+      tokenError.statusCode = 500;
       throw tokenError;
     }
   } catch (error: any) {
@@ -107,9 +107,9 @@ export const loginUser = async (
     }
 
     console.error("Error no manejado en loginUser:", error);
-    const serverError = new Error("Error interno del servidor");
-    (serverError as any).code = "SERVER_ERROR";
-    (serverError as any).statusCode = 500;
+    const serverError: any = new Error("Error interno del servidor");
+    serverError.code = "SERVER_ERROR";
+    serverError.statusCode = 500;
     throw serverError;
   }
 };
@@ -129,9 +129,9 @@ export const getAllUsers = async () => {
     }
 
     console.error("Error no manejado en getAllUsers:", error);
-    const serverError = new Error("Error interno del servidor");
-    (serverError as any).code = "SERVER_ERROR";
-
+    const serverError: any = new Error("Error interno del servidor");
+    serverError.code = "SERVER_ERROR";
+    serverError.statusCode = 500;
     throw serverError;
   }
 };

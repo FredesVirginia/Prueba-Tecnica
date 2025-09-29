@@ -15,6 +15,15 @@ const INITIAL_USER_STATE: User = {
   email: "",
 };
 
+const isTest = process.env.NODE_ENV === 'test';
+
+let memory: { [key: string]: string | null } = {};
+const memoryStorage = {
+  getItem: (key: string) => memory[key] || null,
+  setItem: (key: string, value: string) => { memory[key] = value; },
+  removeItem: (key: string) => { delete memory[key]; },
+};
+
 export const useUserStore = create(
   persist<IUserStore>(
     (set) => ({
@@ -23,7 +32,7 @@ export const useUserStore = create(
     }),
     {
       name: "user-storage",
-      storage: createJSONStorage(() => secureLocalStorage as any),
+      storage: createJSONStorage(() => isTest ? memoryStorage : secureLocalStorage as any),
     }
   )
 );

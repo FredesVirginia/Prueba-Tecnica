@@ -107,9 +107,9 @@ export default function LoginPage() {
             <InputGroup className="bg-white items-center w-full">
               <InputGroup.Button onClick={() => setVisible(!visible)} className="cursor-pointer">
                 {visible ? (
-                  <VisibleIcon style={{ color: "#52C5FA" }} />
+                  <span className="text-[#52C5FA]"><VisibleIcon /></span>
                 ) : (
-                  <EyeCloseIcon style={{ color: "#52C5FA" }} />
+                  <span className="text-[#52C5FA]"><EyeCloseIcon /></span>
                 )}
               </InputGroup.Button>
               <Field

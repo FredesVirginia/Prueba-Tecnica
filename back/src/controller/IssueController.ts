@@ -28,8 +28,8 @@ export const updateAssignment = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { id } = req.params; // Extraer el ID del issue de la URL
-    const assignedToDto: UpdateIssueDto = req.body; // Recibir todo el DTO
+    const { id } = req.params;
+    const assignedToDto: UpdateIssueDto = req.body;
 
     if (!assignedToDto.assignedTo) {
       res.status(400).json({
@@ -103,7 +103,6 @@ export const getIssueId = async (
   } catch (error: any) {
     console.error("Error en getIssueId:", error);
 
-    // Usamos el statusCode del error
     const status = error.statusCode || 500;
     res.status(status).json({
       message: error.message,
@@ -131,16 +130,15 @@ export const remove = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-
 export const getIssuesWithFiltersController = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const { status, priority, assignedTo, createdBy, title, description } = req.query;
+    const { status, priority, assignedTo, createdBy, title, description } =
+      req.query;
     const page = parseInt(req.query.page as string) || 1;
 
-  
     const filters = {
       ...(status && { status: status as string }),
       ...(priority && { priority: priority as string }),
@@ -150,7 +148,6 @@ export const getIssuesWithFiltersController = async (
       ...(description && { description: description as string }),
     };
 
-   
     const result = await getIssuesWithFilters(filters, page, 5);
 
     res.status(200).json({
