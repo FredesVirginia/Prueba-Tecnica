@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { VscClose, VscEdit, VscRemove, VscSave } from "react-icons/vsc";
-import {  IconButton, Input, SelectPicker, Table, Tag } from "rsuite";
+import { IconButton, Input, SelectPicker, Table, Tag } from "rsuite";
 import {
   useHookIssues,
   type EditableIssue,
@@ -8,11 +8,10 @@ import {
 } from "../hooks/useIssues/useIssues";
 import { useUser } from "../hooks/useUsers/useUser";
 import { Priority, Status } from "../types/enums/enums";
-import { ModalIssueId } from './ModalIssueId';
-import PaginationComponent from './Pagination';
-import { FilterIssues } from './FilterIssues';
-import type { IssueFilters } from '../hooks/useIssues/IReqIssues';
-
+import { ModalIssueId } from "./ModalIssueId";
+import PaginationComponent from "./Pagination";
+import { FilterIssues } from "./FilterIssues";
+import type { IssueFilters } from "../hooks/useIssues/IReqIssues";
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -32,8 +31,18 @@ export default function TableIssues() {
   const { data: usersData } = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const [activeFilters, setActiveFilters] = useState<IssueFilters>({});
-  const {data,handleChange,handleEdit,handleCancel,handleSave,handleRemove,handleView,pagination,refetch,} = useHookIssues(currentPage, activeFilters);
-  console.log("Data aaaaaaaaaaaaa" , data)
+  const {
+    data,
+    handleChange,
+    handleEdit,
+    handleCancel,
+    handleSave,
+    handleRemove,
+    handleView,
+    pagination,
+    refetch,
+  } = useHookIssues(currentPage, activeFilters);
+
   const users =
     usersData?.map((user) => ({
       label: user.name,
@@ -43,15 +52,13 @@ export default function TableIssues() {
       email: user.email,
     })) || [];
 
- 
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   const handleApplyFilters = (filters: IssueFilters) => {
     setActiveFilters(filters);
-    setCurrentPage(1); 
+    setCurrentPage(1);
     refetch();
   };
 
@@ -68,11 +75,15 @@ export default function TableIssues() {
           onClearFilters={handleClearFilters}
           users={users}
         />
-      
       </div>
 
       <div>
-        <Table className="mx-5 rounded-xl" height={300} data={data} rowKey="_id">
+        <Table
+          className="mx-5 rounded-xl"
+          height={300}
+          data={data}
+          rowKey="_id"
+        >
           {/* Columna ID */}
           <Column width={80} fixed>
             <HeaderCell>ID</HeaderCell>

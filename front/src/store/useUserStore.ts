@@ -15,13 +15,17 @@ const INITIAL_USER_STATE: User = {
   email: "",
 };
 
-const isTest = process.env.NODE_ENV === 'test';
+const isTest = process.env.NODE_ENV === "test";
 
 let memory: { [key: string]: string | null } = {};
 const memoryStorage = {
   getItem: (key: string) => memory[key] || null,
-  setItem: (key: string, value: string) => { memory[key] = value; },
-  removeItem: (key: string) => { delete memory[key]; },
+  setItem: (key: string, value: string) => {
+    memory[key] = value;
+  },
+  removeItem: (key: string) => {
+    delete memory[key];
+  },
 };
 
 export const useUserStore = create(
@@ -32,7 +36,9 @@ export const useUserStore = create(
     }),
     {
       name: "user-storage",
-      storage: createJSONStorage(() => isTest ? memoryStorage : secureLocalStorage as any),
+      storage: createJSONStorage(() =>
+        isTest ? memoryStorage : (secureLocalStorage as any)
+      ),
     }
   )
 );

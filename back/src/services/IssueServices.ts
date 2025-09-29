@@ -68,7 +68,7 @@ export const getIssues = async (page: number = 1, limit: number = 5) => {
       .populate("createdBy", "name email")
       .skip(skip)
       .limit(limit)
-      .sort({ createdAt: -1 }); // Ordenar por fecha de creación (más recientes primero)
+      .sort({ createdAt: -1 }); 
 
     // Calcular metadatos de paginación
     const totalPages = Math.ceil(total / limit);
@@ -89,7 +89,7 @@ export const getIssues = async (page: number = 1, limit: number = 5) => {
       },
     };
   } catch (error: any) {
-    // Si el error ya tiene código, lo propagamos
+   
     if (error.code) {
       throw error;
     }
