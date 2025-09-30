@@ -2,6 +2,11 @@
 
 Este proyecto es una aplicación full stack que consta de un backend desarrollado con Node.js, Express y MongoDB, y un frontend desarrollado con React y Vite.
 
+#Credenciales de Prueba
+email : admin@example.com
+password : password122
+
+
 ## Características
 
 - Autenticación de usuarios (registro e inicio de sesión)
